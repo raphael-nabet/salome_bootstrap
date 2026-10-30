@@ -61,6 +61,8 @@ BaseTraceCollector* FileTraceCollector::instance(const char *fileName)
           DEVTRACE(" _fileName: " << _fileName);
 
 #if defined(__APPLE__)
+          if (_sem)                            // semaphore of a previous instance
+            dispatch_release(_sem);
           _sem = dispatch_semaphore_create(0); // to wait until run thread is initialized
 #else
           sem_init(&_sem,0,0); // to wait until run thread is initialized

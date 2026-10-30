@@ -155,3 +155,9 @@ INSTALL(EXPORT ${PROJECT_NAME}TargetGroup DESTINATION "${BOOTSTRAP_INSTALL_CMAKE
 INSTALL(PROGRAMS salome 
         DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(DIRECTORY ${PROJECT_BINARY_DIR}/ext_mng DESTINATION ${CMAKE_INSTALL_PREFIX})
+
+# macOS: relative rpaths (@loader_path) at the end of the installation.
+# Must stay the last ADD_SUBDIRECTORY (see KERNEL/postinstall).
+IF(APPLE)
+  ADD_SUBDIRECTORY(postinstall)
+ENDIF(APPLE)
